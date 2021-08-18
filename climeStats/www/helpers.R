@@ -129,3 +129,45 @@ rank_days <- function(meteo,nombre=c("Precipitation","Temperature")){
   }
   return(setNames(list(highest,lowest),c("highest","lowest")))
 }
+
+############################## custom plots ##############################
+custom_plot <- function(meteo, from, to, nombre=c("Precipitation","Temperature"), grado=1){
+  if(nombre=="Precipitation"){funz<-"sum"}else{funz <- "mean"}
+  # prapare data for custom period
+  if(to<from){
+    meses<-c(from:12,1:to)
+    year1<-1
+  }else{
+    meses<-from:to
+    year1<-0
+  }
+  tabla <- aggregate(meteo[,"value"],by=list(meteo[,"month"],meteo[,"year"]),FUN=eval(parse(text=funz)))
+  tabla <- subset(tabla, Group.1 %in% meses)
+  tabla[,"auxiliary"] <- 0
+  tabla$auxiliary[tabla$Group.1 %in% from] <- (tabla$Group.2[tabla$Group.1 %in% from])+year1
+  tabla[,"customPeriod"] <- 0
+  if(tabla$auxiliary[1]>0){tabla$customPeriod[1] <- tabla$auxiliary[1]}
+  for(i in 2:nrow(tabla)){
+    if(tabla$auxiliary[i]==0){
+      tabla$customPeriod[i] <- tabla$customPeriod[i-1]
+    }else{
+      tabla$customPeriod[i] <- tabla$auxiliary[i]}}
+  tabla <- subset(tabla, customPeriod>0)
+  tabla <- aggregate(tabla$x,by=list(tabla$customPeriod),FUN=eval(parse(text=funz)))
+  # plot
+  yy <- tabla[,"x"]
+  xx <- tabla[,"Group.1"]
+  fo <- poly(c(1:nrow(tabla)),grado)
+  fit.poly <- predict(lm(yy ~ fo))
+  f <- plot_ly(x=xx)
+  f <- add_lines(p=f, y=yy, name=nombre)
+  f <- add_lines(p=f, y=fit.poly, name=paste0(grado,"-degree polynomial"))
+  f <- layout(p=f, xaxis=list(title="year"))
+  return(f)
+}
+
+
+
+
+
+

@@ -200,5 +200,34 @@ shinyServer(function(input, output) {
         if(input$select_custom_2=="current"){elegir<-x:12}else{elegir<-1:(x-1)}
         selectInput(inputId="select_custom_3",label="Month closing the period:",choices=elegir, selected=elegir[1], multiple=FALSE)
     })
+    # Set the degree of polynomial smoothing line
+    output$ui15 <- renderUI({
+        selectInput(inputId="selectPolyDegree_custom",label="Select the degree of the smoothing polynomial line",
+                    choices=c(1:30), selected=1, multiple=FALSE)
+    })
+    # Adding the "do it" button
+    output$ui16 <- renderUI({
+        req(input$file_tempe)
+        req(input$file_preci)
+        actionButton("do_custom_analysis", "Do it!")
+    })
+    # reactive expressions
+    do_custom_plot_P <- eventReactive(input$do_custom_analysis,{
+        custom_plot(meteo=import_data(nombre=input$file_preci$datapath),
+                    from=as.integer(input$select_custom_1),
+                    to=as.integer(input$select_custom_3),
+                    nombre="Precipitation",
+                    grado=as.integer(input$selectPolyDegree_custom))
+    })
+    do_custom_plot_T <- eventReactive(input$do_custom_analysis,{
+        custom_plot(meteo=import_data(nombre=input$file_tempe$datapath),
+                    from=as.integer(input$select_custom_1),
+                    to=as.integer(input$select_custom_3),
+                    nombre="Temperature",
+                    grado=as.integer(input$selectPolyDegree_custom))
+    })
+    # # show results
+    output$plot6 <- renderPlotly({do_custom_plot_P()})
+    output$plot7 <- renderPlotly({do_custom_plot_T()})
 
 })

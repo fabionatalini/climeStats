@@ -138,26 +138,25 @@ rank_days <- function(meteo,nombre=c("Precipitation","Temperature")){
 }
 
 #############################
-meteo <- preci
-from <- 12
-to <- 2
-nombre <- "Precipitation"
+### custom plots
+meteo=preci
+from=10
+to=9
+nombre=c("Precipitation")
+grado=3
 
 if(nombre=="Precipitation"){funz<-"sum"}else{funz <- "mean"}
-
+# prapare data for custom period
 if(to<from){
   meses<-c(from:12,1:to)
   year1<-1
-  }else{
-    meses<-from:to
-    year1<-0
-    }
-
+}else{
+  meses<-from:to
+  year1<-0
+}
 tabla <- aggregate(meteo[,"value"],by=list(meteo[,"month"],meteo[,"year"]),FUN=eval(parse(text=funz)))
 tabla <- subset(tabla, Group.1 %in% meses)
-
 tabla[,"auxiliary"] <- 0
-
 tabla$auxiliary[tabla$Group.1 %in% from] <- (tabla$Group.2[tabla$Group.1 %in% from])+year1
 tabla[,"customPeriod"] <- 0
 if(tabla$auxiliary[1]>0){tabla$customPeriod[1] <- tabla$auxiliary[1]}
@@ -166,8 +165,51 @@ for(i in 2:nrow(tabla)){
     tabla$customPeriod[i] <- tabla$customPeriod[i-1]
   }else{
     tabla$customPeriod[i] <- tabla$auxiliary[i]}}
-
 tabla <- subset(tabla, customPeriod>0)
 tabla <- aggregate(tabla$x,by=list(tabla$customPeriod),FUN=eval(parse(text=funz)))
+# plot
+yy <- tabla[,"x"]
+xx <- tabla[,"Group.1"]
+fo <- poly(c(1:nrow(tabla)),grado)
+fit.poly <- predict(lm(yy ~ fo))
+f <- plot_ly(x=xx)
+f <- add_lines(p=f, y=yy, name=nombre)
+f <- add_lines(p=f, y=fit.poly, name=paste0(grado,"-degree polynomial"))
+f <- layout(p=f, xaxis=list(title="year"))
+f
+
+### plot trend year
+grado=3
+meteo=preci
+nombre=c("Precipitation")
+start_hydro_year=10
+
+if(nombre=="Precipitation"){funz<-"sum"}else{funz <- "mean"}
+tabla <- aggregate(meteo[,"value"],by=list(meteo[,"month"],meteo[,"year"]),FUN=eval(parse(text=funz)))
+# make hydrological years
+tabla[,"auxiliary"] <- 0
+if(start_hydro_year>1){year1<-1}else{year1<-0}
+tabla$auxiliary[tabla$Group.1 %in% start_hydro_year] <- (tabla$Group.2[tabla$Group.1 %in% start_hydro_year])+year1
+tabla[,"hydroYear"] <- 0
+if(tabla$auxiliary[1]>0){tabla$hydroYear[1] <- tabla$auxiliary[1]}
+for(i in 2:nrow(tabla)){
+  if(tabla$auxiliary[i]==0){
+    tabla$hydroYear[i] <- tabla$hydroYear[i-1]
+  }else{
+    tabla$hydroYear[i] <- tabla$auxiliary[i]}}
+# plot
+tabla <- subset(tabla,hydroYear>0)
+tabla <- aggregate(tabla$x,by=list(tabla$hydroYear),FUN=eval(parse(text=funz)))
+yy <- tabla[,"x"]
+xx <- tabla[,"Group.1"]
+fo <- poly(c(1:nrow(tabla)),grado)
+fit.poly <- predict(lm(yy ~ fo))
+f <- plot_ly(x=xx)
+f <- add_lines(p=f, y=yy, name=nombre)
+f <- add_lines(p=f, y=fit.poly, name=paste0(grado,"-degree polynomial"))
+f <- layout(p=f, xaxis=list(title="year"))
+f
+
+
 
 

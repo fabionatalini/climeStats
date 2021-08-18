@@ -53,6 +53,19 @@ shinyUI(fluidPage(
                                     p("For the ranked monthly values, there is one table per month showing the ordered climate values (one value per year). For example, if you use the precipitation data from Huelva indicated above, you will see one table per month with the sums of precipitations in each year starting from 1920."),
                                     p("For the ranked annual values, the annual sums of the precipitation data and the annual means of the temperature data will be calculated and showed in decreasing order. The program will ask you to select the first month of the hydrological year."),
                                     p("Finally, for the ranked daily records, the program first orders both input data files, and then it shows the highest 100 and the lowest 100 daily records in two tables."),
+                                    hr(),
+                                 h4("Custom period"),
+                                    p("In the tab 'Custom period' you can plot precipitation and temperature values computed over 12 or less months every year. This enables you to visualize, for example, the trends of precipitation and temperatures of a season or just one month."),
+                                    p("First, the program asks you to select the first month of the custom period. Secondly, the program asks you to choose if the last month of the custom period is in the same year of the first month of in the subsequent year. Then, you are asked to enter the month closing the custom period."),
+                                    p("Note that the maximum length of the period is 12 months. So, if you select '1' as the first month, the program will let you choose the closing month only in the same year. If you select '2' as first month, you can choose any month greater than '1' in the current year but only '1' in the next year. Similarly, if you choose '3' as first month, you can choose '2' in the next year at the most. And so on."),
+                                    p("Finally, the program asks you to select the degree of the polynomial line that will be fitted to both series."),
+                                    p("To make this tab run, you need to upload both input data files first."),
+                                    HTML("<p> Some examples: </p>
+                                    <ul>
+                                    <li>To plot climatic data in winter, you choose '12' as first month and '2' as last month in the next year.</li>
+                                    <li>If you want to plot climatic data in spring, you choose '3' as first month and '5' as last month in the same year.</li>
+                                    <li>If you chose '10' as first month and '9' as last month in the next year, this would be the hydrological year similarly defined in the tabs 'P trends' and 'T trends'.</li>
+                                    </ul>"),
                                     br()
                                  ),
                         tabPanel("Climograph",
@@ -157,7 +170,15 @@ shinyUI(fluidPage(
                                  br(),
                                  uiOutput("ui13"),
                                  br(),
-                                 uiOutput("ui14")
+                                 uiOutput("ui14"),
+                                 br(),
+                                 uiOutput("ui15"),
+                                 br(),
+                                 uiOutput("ui16"),
+                                 br(),
+                                 plotlyOutput("plot6"),
+                                 br(),
+                                 plotlyOutput("plot7"),
                                  )
                         )
             )
