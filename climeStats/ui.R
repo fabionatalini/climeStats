@@ -2,6 +2,7 @@ library(shiny)
 library(plotly)
 
 source("www/helpers.R")
+testo_istruzioni <- paste(readLines("www/instruction_tab.html"), collapse=" ")
 
 shinyUI(fluidPage(
     
@@ -31,42 +32,14 @@ shinyUI(fluidPage(
                                      dataTableOutput("demo_table"),
                                      p("The 4th column contains the daily climate records. The 1st, 2nd and 3rd columns store the time reference of each record, i.e. year, month and day of the month respectively. The table in the example above shows a sample of precipitation records of the meteorological station 'Ronda del este' located in Huelva, Spain. So, for instance, on the 1st of January 1920 there were 2.1 mm of rain."),
                                      p("You can download the precipitation and temperature data of the meteorological station 'Ronda del este' here:"),
-                                     p("Download ",a(href="peca3937.csv", "precipitation demo data", download=NA, target="_blank")),
-                                     p("Download ",a(href="teca418.csv", "temperature demo data", download=NA, target="_blank")),
+                                     HTML('<a href="peca3937.csv" download><p>Download precipitation data</p></a>'),
+                                     HTML('<a href="teca418.csv" download><p>Download temperature data</p></a>'),
+                                     # p("Download ",a(href="peca3937.csv", "precipitation demo data", download=NA, target="_blank")),
+                                     # p("Download ",a(href="teca418.csv", "temperature demo data", download=NA, target="_blank")),
                                      p("Both files were retrieved from the international climate databank hosted by the Regional Climate Centre of the World Meteorological Organization at the Royal Netherlands Meteorological Institute",a(href="https://climexp.knmi.nl","https://climexp.knmi.nl",target="_blank"),"."),
+                                     HTML('<p><b>NOTE:</b> the program does not handle missing data and takes the input files "as they are"</p>'),
                                      hr(),
-                                 h4("Climograph"),
-                                    p("After uploading the precipitation and temperature input files, in the tab 'Climograph' you can visualize a climograph following the standard Bagnouls-Gaussen diagram
-                                      where the scale of the precipitation data is double the scale of the temperature data."),
-                                    hr(),
-                                 h4("P trends and T trends"),
-                                    p("After uploading the precipitation data input file, in the tab 'P trends' you can visualize the series of monthly sums of precipitations and the series of annual sums of precipitations. 
-                                      A polynomial line is fitted to both series, and you are asked to select the degree of the polynomial (a 1-degree polynomial, i.e. a linear regression line, is configured as a default)."),
-                                    p("Moreover, the program asks you to select the first month of the hydrological year, i.e. the period of 12 months to calculate the annual sums of precipitations. 
-                                      October is the default, so the annual value will be computed as the sum of precipitations from the 1st of October to the 30th of September of the next year. 
-                                      Please note that the next year is the reference to label the hydrological year, e.g. the hydrological year 2019 is from 2018-10-01 to 2019-09-30. 
-                                      If you select January as the first month, the calendar year will be calculated instead."),
-                                    p("Similarly, after uploading the daily temperature data input file, in the tab 'T trends' you can visualize the series of monthly and annual means of temperature."),
-                                    hr(),
-                                 h4("P stats and T stats"),
-                                    p("After uploading the daily data input files, in the tabs 'P stats' and 'T stats' you can visualize the ranked monthly values, the ranked annual values and the ranked daily records."),
-                                    p("For the ranked monthly values, there is one table per month showing the ordered climate values (one value per year). For example, if you use the precipitation data from Huelva indicated above, you will see one table per month with the sums of precipitations in each year starting from 1920."),
-                                    p("For the ranked annual values, the annual sums of the precipitation data and the annual means of the temperature data will be calculated and showed in decreasing order. The program will ask you to select the first month of the hydrological year."),
-                                    p("Finally, for the ranked daily records, the program first orders both input data files, and then it shows the highest 100 and the lowest 100 daily records in two tables."),
-                                    hr(),
-                                 h4("Custom period"),
-                                    p("In the tab 'Custom period' you can plot precipitation and temperature values computed over 12 or less months every year. This enables you to visualize, for example, the trends of precipitation and temperatures of a season or just one month."),
-                                    p("First, the program asks you to select the first month of the custom period. Secondly, the program asks you to choose if the last month of the custom period is in the same year of the first month of in the subsequent year. Then, you are asked to enter the month closing the custom period."),
-                                    p("Note that the maximum length of the period is 12 months. So, if you select '1' as the first month, the program will let you choose the closing month only in the same year. If you select '2' as first month, you can choose any month greater than '1' in the current year but only '1' in the next year. Similarly, if you choose '3' as first month, you can choose '2' in the next year at the most. And so on."),
-                                    p("Finally, the program asks you to select the degree of the polynomial line that will be fitted to both series."),
-                                    p("To make this tab run, you need to upload both input data files first."),
-                                    HTML("<p> Some examples: </p>
-                                    <ul>
-                                    <li>To plot climatic data in winter, you choose '12' as first month and '2' as last month in the next year.</li>
-                                    <li>If you want to plot climatic data in spring, you choose '3' as first month and '5' as last month in the same year.</li>
-                                    <li>If you chose '10' as first month and '9' as last month in the next year, this would be the hydrological year similarly defined in the tabs 'P trends' and 'T trends'.</li>
-                                    </ul>"),
-                                    br()
+                                 HTML(testo_istruzioni)
                                  ),
                         tabPanel("Climograph",
                                  br(),

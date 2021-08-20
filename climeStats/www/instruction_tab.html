@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<h4>Climograph</h4>
+<p>After uploading the precipitation and temperature input files, in the tab "Climograph" you can visualize a climograph following the standard Bagnouls-Gaussen diagram where the scale of the precipitation data is double the scale of the temperature data.</p>
+<hr>
+
+<h4>P trends and T trends</h4>
+<p>After uploading the precipitation data input file, in the tab 'P trends' you can visualize the series of monthly sums of precipitations and the series of annual sums of precipitations. A polynomial line is fitted to both series, and you are asked to select the degree of the polynomial (a 1-degree polynomial, i.e. a linear regression line, is configured as a default).</p>
+<p>Moreover, the program asks you to select the first month of the hydrological year, i.e. the period of 12 months to calculate the annual sums of precipitations. October is the default, so the annual value will be computed as the sum of precipitations from the 1st of October to the 30th of September of the next year. Please note that the next year is the reference to label the hydrological year, e.g. the hydrological year 2019 is from 2018-10-01 to 2019-09-30. If you select January as the first month, the calendar year will be calculated instead.</p>
+<p>Similarly, after uploading the daily temperature data input file, in the tab 'T trends' you can visualize the series of monthly and annual means of temperature.</p>
+<hr>
+
+<h4>P stats and T stats</h4>
+<p>After uploading the daily data input files, in the tabs 'P stats' and 'T stats' you can visualize the ranked monthly values, the ranked annual values and the ranked daily records.</p>
+<p>For the ranked monthly values, there is one table per month showing the ordered climate values (one value per year). For example, if you use the precipitation data from Huelva indicated above, you will see one table per month with the sums of precipitations in each year starting from 1920.</p>
+<p>For the ranked annual values, the annual sums of the precipitation data and the annual means of the temperature data will be calculated and showed in decreasing order. The program will ask you to select the first month of the hydrological year.</p>
+<p>Finally, for the ranked daily records, the program first orders both input data files, and then it shows the highest 100 and the lowest 100 daily records in two tables.</p>
+<hr>
+
+<h4>Custom period</h4>
+<p>In the tab 'Custom period' you can plot precipitation and temperature values computed over 12 or less months every year. This enables you to visualize, for example, the trends of precipitation and temperatures of a season or just one month.</p>
+<p>First, the program asks you to select the first month of the custom period. Secondly, the program asks you to choose if the last month of the custom period is in the same year of the first month of in the subsequent year. Then, you are asked to enter the month closing the custom period.</p>
+<p>Note that the maximum length of the period is 12 months. So, if you select '1' as the first month, the program will let you choose the closing month only in the same year. If you select '2' as first month, you can choose any month greater than '1' in the current year but only '1' in the next year. Similarly, if you choose '3' as first month, you can choose '2' in the next year at the most. And so on.</p>
+<p>Finally, the program asks you to select the degree of the polynomial line that will be fitted to both series.</p>
+<p>To make this tab run, you need to upload both input data files first.</p>
+<p> Some examples: </p>
+  <ul>
+    <li>To plot climatic data in winter, you choose '12' as first month and '2' as last month in the next year</li>
+    <li>If you want to plot climatic data in spring, you choose '3' as first month and '5' as last month in the same year</li>
+    <li>If you chose '10' as first month and '9' as last month in the next year, this would be the hydrological year similarly defined in the tabs 'P trends' and 'T trends'.</li>
+  </ul>
+<br>
+
+</body>
+</html>
+
