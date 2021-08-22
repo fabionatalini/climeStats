@@ -1,6 +1,6 @@
 ############################## import data ##############################
 import_data <- function(nombre){
-  x <- read.csv(file=nombre,header=TRUE,sep="\t")
+  x <- read.csv(file=nombre,header=TRUE,sep="\t",encoding = "Latin-1")
   names(x) <- c("year","month","day","value")
   return(x)
   }
@@ -33,8 +33,11 @@ do_Climograph <- function(preci,tempe){
 plot_trend_months <- function(grado=1,meteo,nombre=c("Precipitation","Temperature")){
   if(nombre=="Precipitation"){funz<-"sum"}else{funz <- "mean"}
   tabla <- aggregate(meteo[,"value"],by=list(meteo[,"month"],meteo[,"year"]),FUN=eval(parse(text=funz)))
-  tabla[,"time"] <- paste(tabla$Group.2,tabla$Group.1,sep="-")
-  tabla[,c("Group.1","Group.2")] <- NULL
+  lookup <- data.frame("conCeros"=c(paste0(0,1:9),10,11,12), "sinCeros"=1:12)
+  tabla <- merge(x=tabla, y=lookup, by.x="Group.1", by.y="sinCeros")
+  tabla[,"time"] <- paste(tabla$Group.2,tabla$conCeros,sep="-")
+  tabla <- tabla[order(tabla$Group.2,tabla$Group.1,decreasing=FALSE),]
+  tabla[,c("Group.1","Group.2","conCeros")] <- NULL
   yy <- tabla[,"x"]
   xx <- tabla[,"time"]
   fo <- poly(c(1:nrow(tabla)),grado)
@@ -61,8 +64,15 @@ plot_trend_years <- function(grado=1,meteo,nombre=c("Precipitation","Temperature
       tabla$hydroYear[i] <- tabla$hydroYear[i-1]
     }else{
       tabla$hydroYear[i] <- tabla$auxiliary[i]}}
-  # plot
+  # take only complete years
   tabla <- subset(tabla,hydroYear>0)
+  row.names(tabla) <- NULL
+  lastHydroYear <- rev(which(tabla$auxiliary!=0))[1]
+  lastRow <- nrow(tabla)
+  if((lastRow-lastHydroYear+1)!=12){
+    tabla <- tabla[-c(lastHydroYear:lastRow),]
+  }
+  # plot
   tabla <- aggregate(tabla$x,by=list(tabla$hydroYear),FUN=eval(parse(text=funz)))
   yy <- tabla[,"x"]
   xx <- tabla[,"Group.1"]
@@ -152,9 +162,19 @@ custom_plot <- function(meteo, from, to, nombre=c("Precipitation","Temperature")
       tabla$customPeriod[i] <- tabla$customPeriod[i-1]
     }else{
       tabla$customPeriod[i] <- tabla$auxiliary[i]}}
+  # take only complete years
   tabla <- subset(tabla, customPeriod>0)
-  tabla <- aggregate(tabla$x,by=list(tabla$customPeriod),FUN=eval(parse(text=funz)))
+  row.names(tabla) <- NULL
+  lastHydroYear <- rev(which(tabla$auxiliary!=0))[1]
+  lastRow <- nrow(tabla)
+  penultimateHydroYear <- rev(which(tabla$auxiliary!=0))[2]
+  lastValidMonth <- lastHydroYear-1
+  needLength <- nrow(tabla[penultimateHydroYear:lastValidMonth,])
+  if((lastRow-lastHydroYear+1)!=needLength){
+    tabla <- tabla[-c(lastHydroYear:lastRow),]
+  }
   # plot
+  tabla <- aggregate(tabla$x,by=list(tabla$customPeriod),FUN=eval(parse(text=funz)))
   yy <- tabla[,"x"]
   xx <- tabla[,"Group.1"]
   fo <- poly(c(1:nrow(tabla)),grado)

@@ -1,5 +1,6 @@
 library(shiny)
 library(plotly)
+library(DT)
 
 source("www/helpers.R")
 testo_istruzioni <- paste(readLines("www/instruction_tab.html"), collapse=" ")
@@ -17,27 +18,29 @@ shinyUI(fluidPage(
             fileInput("file_tempe","Upload temperature dataset"),
             br(),
             p("Created by ", a(href="https://fabionatalini.wixsite.com/fabio", "Fabio Natalini", target="_blank")),
-            HTML('<a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.')
+            HTML('<p style="font-size:80%;">
+                 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>
+                 </p>')
         ),
         # Outputs
         mainPanel(
             tabsetPanel(type = "tabs",
                         tabPanel("Instructions",
                                  br(),
-                                 h3("Welcome to ClimaViz"),
+                                 h3("Welcome to climeStats"),
                                  h5("an interactive interface to analyse climatic data"),
                                  hr(),
                                  h4("Input files"),
-                                     p("You will need two input files: a daily precipitation data file and a daily temperature data file. Both must be plain files (.txt or .csv) with tab-separated columns like the following:"),
+                                     p("You will need two input files: a daily precipitation data file and a daily temperature data file. Upload them on the sidebar. Both must be plain files (.txt or .csv) with tab-separated columns like the following:"),
                                      dataTableOutput("demo_table"),
                                      p("The 4th column contains the daily climate records. The 1st, 2nd and 3rd columns store the time reference of each record, i.e. year, month and day of the month respectively. The table in the example above shows a sample of precipitation records of the meteorological station 'Ronda del este' located in Huelva, Spain. So, for instance, on the 1st of January 1920 there were 2.1 mm of rain."),
-                                     p("You can download the precipitation and temperature data of the meteorological station 'Ronda del este' here:"),
-                                     HTML('<a href="peca3937.csv" download><p>Download precipitation data</p></a>'),
-                                     HTML('<a href="teca418.csv" download><p>Download temperature data</p></a>'),
+                                     p("To test the program, you can download the precipitation and temperature data of the meteorological station 'Ronda del este' here:"),
+                                     HTML('<a href="peca3937.csv" download><p>Download precipitation demo data</p></a>'),
+                                     HTML('<a href="teca418.csv" download><p>Download temperature demo data</p></a>'),
                                      # p("Download ",a(href="peca3937.csv", "precipitation demo data", download=NA, target="_blank")),
                                      # p("Download ",a(href="teca418.csv", "temperature demo data", download=NA, target="_blank")),
                                      p("Both files were retrieved from the international climate databank hosted by the Regional Climate Centre of the World Meteorological Organization at the Royal Netherlands Meteorological Institute",a(href="https://climexp.knmi.nl","https://climexp.knmi.nl",target="_blank"),"."),
-                                     HTML('<p><b>NOTE:</b> the program does not handle missing data and takes the input files "as they are"</p>'),
+                                     HTML('<p><b>NOTE: </b><i>the program takes the input files "as they are": it does not handle missing data and does not compute hydrological years beyond the available range of data</i></p>'),
                                      hr(),
                                  HTML(testo_istruzioni)
                                  ),

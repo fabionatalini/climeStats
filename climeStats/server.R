@@ -115,21 +115,21 @@ shinyServer(function(input, output) {
         month_stats(tabla=df,nombre="Precipitation",mes=m)
         }
     # show the results
-    output$ps25 <- renderDataTable({do_P_rank_years()},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps26 <- renderDataTable({do_P_rank_days()$highest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps27 <- renderDataTable({do_P_rank_days()$lowest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps1 <- renderDataTable({do_P_stats(m=1)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps2 <- renderDataTable({do_P_stats(m=2)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps3 <- renderDataTable({do_P_stats(m=3)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps4 <- renderDataTable({do_P_stats(m=4)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps5 <- renderDataTable({do_P_stats(m=5)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps6 <- renderDataTable({do_P_stats(m=6)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps7 <- renderDataTable({do_P_stats(m=7)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps8 <- renderDataTable({do_P_stats(m=8)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps9 <- renderDataTable({do_P_stats(m=9)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps10 <- renderDataTable({do_P_stats(m=10)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps11 <- renderDataTable({do_P_stats(m=11)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps12 <- renderDataTable({do_P_stats(m=12)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps25 <- DT::renderDataTable({do_P_rank_years()},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps26 <- DT::renderDataTable({do_P_rank_days()$highest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps27 <- DT::renderDataTable({do_P_rank_days()$lowest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps1 <- DT::renderDataTable({do_P_stats(m=1)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps2 <- DT::renderDataTable({do_P_stats(m=2)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps3 <- DT::renderDataTable({do_P_stats(m=3)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps4 <- DT::renderDataTable({do_P_stats(m=4)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps5 <- DT::renderDataTable({do_P_stats(m=5)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps6 <- DT::renderDataTable({do_P_stats(m=6)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps7 <- DT::renderDataTable({do_P_stats(m=7)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps8 <- DT::renderDataTable({do_P_stats(m=8)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps9 <- DT::renderDataTable({do_P_stats(m=9)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps10 <- DT::renderDataTable({do_P_stats(m=10)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps11 <- DT::renderDataTable({do_P_stats(m=11)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps12 <- DT::renderDataTable({do_P_stats(m=12)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
     
     ############################## T stats ##############################
     # Set the starting month of the hydrological year
@@ -159,24 +159,24 @@ shinyServer(function(input, output) {
         month_stats(tabla=df,nombre="Temperature",mes=m)
     }
     # show the result
-    output$ps28 <- renderDataTable({do_T_rank_years()},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps29 <- renderDataTable({do_T_rank_days()$highest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps30 <- renderDataTable({do_T_rank_days()$lowest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps13 <- renderDataTable({do_T_stats(m=1)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps14 <- renderDataTable({do_T_stats(m=2)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps15 <- renderDataTable({do_T_stats(m=3)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps16 <- renderDataTable({do_T_stats(m=4)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps17 <- renderDataTable({do_T_stats(m=5)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps18 <- renderDataTable({do_T_stats(m=6)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps19 <- renderDataTable({do_T_stats(m=7)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps20 <- renderDataTable({do_T_stats(m=8)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps21 <- renderDataTable({do_T_stats(m=9)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps22 <- renderDataTable({do_T_stats(m=10)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps23 <- renderDataTable({do_T_stats(m=11)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
-    output$ps24 <- renderDataTable({do_T_stats(m=12)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps28 <- DT::renderDataTable({do_T_rank_years()},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps29 <- DT::renderDataTable({do_T_rank_days()$highest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps30 <- DT::renderDataTable({do_T_rank_days()$lowest},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps13 <- DT::renderDataTable({do_T_stats(m=1)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps14 <- DT::renderDataTable({do_T_stats(m=2)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps15 <- DT::renderDataTable({do_T_stats(m=3)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps16 <- DT::renderDataTable({do_T_stats(m=4)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps17 <- DT::renderDataTable({do_T_stats(m=5)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps18 <- DT::renderDataTable({do_T_stats(m=6)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps19 <- DT::renderDataTable({do_T_stats(m=7)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps20 <- DT::renderDataTable({do_T_stats(m=8)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps21 <- DT::renderDataTable({do_T_stats(m=9)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps22 <- DT::renderDataTable({do_T_stats(m=10)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps23 <- DT::renderDataTable({do_T_stats(m=11)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
+    output$ps24 <- DT::renderDataTable({do_T_stats(m=12)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
     
     ############################## instructions ##############################
-    output$demo_table=renderDataTable(read.csv(file="www/peca3937.csv",header=TRUE,sep="\t")[1:1000,],
+    output$demo_table=DT::renderDataTable(read.csv(file="www/peca3937.csv",header=TRUE,sep="\t")[1:1000,],
                                       options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)#dom option to show only the table
     
     ############################## Custom year ##############################
