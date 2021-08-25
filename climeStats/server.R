@@ -1,6 +1,16 @@
 shinyServer(function(input, output) {
     
-    ############################## climograph ############################## 
+    ############################## Disclaimer ##############################
+    observeEvent(input$showDisclaimer,{
+        showModal(modalDialog(
+            title="Disclaimer","The content of this website is published in good faith.
+            The author assumes no responsibility for any error or omission in the content of this site.
+            The information contained in this site is provided with no guarantees of completeness or accuracy.
+            Any action you take upon the information you find on this website is strictly at your own risk."
+            ))
+    })
+    
+    ############################## climograph ##############################
     # Adding the "do it" button
     output$ui1 <- renderUI({
         req(input$file_preci, input$file_tempe)
@@ -176,7 +186,7 @@ shinyServer(function(input, output) {
     output$ps24 <- DT::renderDataTable({do_T_stats(m=12)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
     
     ############################## instructions ##############################
-    output$demo_table=DT::renderDataTable(read.csv(file="www/peca3937.csv",header=TRUE,sep="\t")[1:1000,],
+    output$demo_table=DT::renderDataTable(read.csv(file="www/peca3937.txt",header=TRUE,sep="\t")[1:1000,],
                                       options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)#dom option to show only the table
     
     ############################## Custom year ##############################
