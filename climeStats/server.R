@@ -186,7 +186,7 @@ shinyServer(function(input, output) {
     output$ps24 <- DT::renderDataTable({do_T_stats(m=12)},options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)
     
     ############################## instructions ##############################
-    output$demo_table=DT::renderDataTable(read.csv(file="www/peca3937.txt",header=TRUE,sep="\t")[1:1000,],
+    output$demo_table=DT::renderDataTable(read.csv(file="www/peca3937.csv",header=TRUE,sep="\t")[1:1000,],
                                       options=list(scrollY=250,paging=FALSE,dom='t'),rownames= FALSE)#dom option to show only the table
     
     ############################## Custom year ##############################
