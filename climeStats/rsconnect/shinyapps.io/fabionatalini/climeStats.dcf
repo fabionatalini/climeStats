@@ -5,9 +5,9 @@ account: fabionatalini
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4518373
-bundleId: 4963628
+bundleId: 4970498
 url: https://fabionatalini.shinyapps.io/climeStats/
-when: 1629910260.05479
-lastSyncTime: 1629910260.05479
+when: 1630048326.26119
+lastSyncTime: 1630048326.26119
 asMultiple: FALSE
 asStatic: FALSE

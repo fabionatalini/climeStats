@@ -1,14 +1,14 @@
 shinyServer(function(input, output) {
     
-    ############################## Disclaimer ##############################
-    observeEvent(input$showDisclaimer,{
-        showModal(modalDialog(
-            title="Disclaimer","The content of this website is published in good faith.
-            The author assumes no responsibility for any error or omission in the content of this site.
-            The information contained in this site is provided with no guarantees of completeness or accuracy.
-            Any action you take upon the information you find on this website is strictly at your own risk."
-            ))
-    })
+    # ############################## Disclaimer ##############################
+    # observeEvent(input$showDisclaimer,{
+    #     showModal(modalDialog(
+    #         title="Disclaimer","The content of this website is published in good faith.
+    #         The author assumes no responsibility for any error or omission in the content of this site.
+    #         The information contained in this site is provided with no guarantees of completeness or accuracy.
+    #         Any action you take upon the information you find on this website is strictly at your own risk."
+    #         ))
+    # })
     
     ############################## climograph ##############################
     # Adding the "do it" button
