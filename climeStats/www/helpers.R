@@ -24,7 +24,7 @@ do_Climograph <- function(preci,tempe){
   f <- layout(p=f,
               xaxis=list(title="Months"),
               yaxis=list(overlaying=FALSE, side="left", title="Precipitation (mm)", range=c(0,maxP)),
-              yaxis2=list(overlaying="y", side="right", title="Temperature (ºC)", range=c(0,maxP/2)))
+              yaxis2=list(overlaying="y", side="right", title="Temperature (Celsius degrees)", range=c(0,maxP/2)))
   return(f)
 }
 
